@@ -21,7 +21,8 @@ module Web.Stripe.Client.HttpStreams
 
 import           Control.Exception          (SomeException, finally, try)
 import           Control.Monad              (when)
-import           Data.Aeson                 (Result(..), FromJSON, Value, fromJSON, json')
+import           Data.Aeson                 (Result(..), FromJSON, Value, fromJSON)
+import           Data.Aeson.Parser          (json')
 import qualified Data.ByteString            as S
 import           Data.Monoid                (mempty, (<>))
 import           Data.Maybe                 (fromMaybe)
@@ -76,10 +77,10 @@ stripeConn conn config request =
 -- | Open a connection to the stripe API server
 withConnection :: Endpoint -> (Connection -> IO (Either StripeError a))
                -> IO (Either StripeError a)
-withConnection (Endpoint endpoint) f =
+withConnection (Endpoint endpoint _proto port) f =
   withOpenSSL $ do
     ctx <- baselineContextSSL
-    result <- try (openConnectionSSL ctx endpoint 443) :: IO (Either SomeException Connection)
+    result <- try (openConnectionSSL ctx endpoint (fromIntegral port)) :: IO (Either SomeException Connection)
     case result of
       Left msg -> return $ Left $ StripeError ConnectionFailure (toText msg) Nothing Nothing Nothing
       Right conn -> (f conn) `finally` (closeConnection conn)
