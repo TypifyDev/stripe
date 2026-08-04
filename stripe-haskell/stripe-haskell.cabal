@@ -1,3 +1,4 @@
+cabal-version:       3.4
 name:                stripe-haskell
 version:             2.6.2
 synopsis:            Stripe API for Haskell
@@ -10,7 +11,6 @@ homepage:            https://github.com/dmjio/stripe
 bug-reports:         https://github.com/dmjio/stripe/issues
 category:            Web
 build-type:          Simple
-cabal-version:       >=1.10
 Description:         For usage information please consult README.md
 
 flag http-streams
