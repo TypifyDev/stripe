@@ -4,7 +4,6 @@
 {-# LANGUAGE RankNTypes #-}
 module Web.Stripe.Test.Transfer where
 
-import           Data.Maybe
 import           Data.Either
 import           Data.String
 import           Web.Stripe.Test.Prelude

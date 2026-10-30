@@ -2,10 +2,11 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Invoice where
 
 import           Data.Either
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Customer
 import           Web.Stripe.Invoice
 import           Web.Stripe.InvoiceItem
@@ -84,8 +85,9 @@ invoiceTests stripe = do
         void $ deleteCustomer cid
         return i
       result `shouldSatisfy` isRight
-      let Right Invoice {..} = result
-      invoiceMetaData `shouldBe` (MetaData [("some", "thing")])
+      case result of
+        Left _ -> expectationFailure "expected Right Invoice, got Left"
+        Right Invoice {..} -> invoiceMetaData `shouldBe` (MetaData [("some", "thing")])
     it "Retrieve an Upcoming Invoice" $ do
       planid <- makePlanId
       result <- stripe $ do
@@ -110,8 +112,9 @@ invoiceTests stripe = do
         void $ deleteCustomer cid
         return i
       result `shouldSatisfy` isRight
-      let Right Invoice{..} = result
-      invoicePaid `shouldBe` True
+      case result of
+        Left _ -> expectationFailure "expected Right Invoice, got Left"
+        Right Invoice{..} -> invoicePaid `shouldBe` True
   where
     cardinfo = (mkNewCard credit em ey) { newCardCVC = Just cvc }
     meta = MetaData [ ("some","metadata") ]

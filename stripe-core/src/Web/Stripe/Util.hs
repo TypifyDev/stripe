@@ -21,7 +21,6 @@ module Web.Stripe.Util
 
 import           Data.ByteString       (ByteString)
 import qualified Data.ByteString.Char8 as B8
-import           Data.Monoid           (Monoid, mconcat, mempty, (<>))
 import           Data.String           (IsString)
 import           Data.Text             (Text)
 import qualified Data.Text             as T

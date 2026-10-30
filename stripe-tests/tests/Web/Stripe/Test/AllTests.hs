@@ -19,12 +19,10 @@ import           Web.Stripe.Test.Dispute               (disputeTests)
 import           Web.Stripe.Test.Invoice               (invoiceTests)
 import           Web.Stripe.Test.InvoiceItem           (invoiceItemTests)
 import           Web.Stripe.Test.Plan                  (planTests)
-import           Web.Stripe.Test.Recipient             (recipientTests)
 import           Web.Stripe.Test.Refund                (refundTests)
 import           Web.Stripe.Test.Subscription          (subscriptionTests)
 import           Web.Stripe.Test.Token                 (tokenTests)
 import           Web.Stripe.Test.Transfer              (transferTests)
-import           Web.Stripe.Test.Event                 (eventTests)
 import           Web.Stripe.Test.Prelude               (Stripe)
 import           Web.Stripe.Client                     (StripeConfig, StripeError)
 ------------------------------------------------------------------------------
@@ -33,7 +31,8 @@ allTests :: (forall a. StripeConfig -> Stripe a -> IO (Either StripeError a))
          -> IO ()
 allTests stripe' = do
   config <- getConfig stripe'
-  let stripe = stripe' config
+  let stripe :: forall a. Stripe a -> IO (Either StripeError a)
+      stripe = stripe' config
   hspec $ do
     chargeTests stripe
     refundTests stripe

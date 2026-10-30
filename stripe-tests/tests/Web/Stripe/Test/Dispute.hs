@@ -2,12 +2,14 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
+{-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
 module Web.Stripe.Test.Dispute where
 
 import           Control.Concurrent      (threadDelay)
 import           Data.Either             (Either (Right), isRight)
 
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 import           Web.Stripe.Test.Util
 

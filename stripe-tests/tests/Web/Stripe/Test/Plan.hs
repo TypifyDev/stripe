@@ -1,15 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Plan where
 
 import           Data.Either   (Either(..), isRight)
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Util     (makePlanId)
 import           Web.Stripe.Test.Prelude
 
 import           Web.Stripe.Plan
-import           Web.Stripe.Customer
 
 planTests :: StripeSpec
 planTests stripe = do

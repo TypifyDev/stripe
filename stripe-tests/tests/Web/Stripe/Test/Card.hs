@@ -2,11 +2,14 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
+{-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
+{-# OPTIONS_GHC -Wno-unused-local-binds #-}
 module Web.Stripe.Test.Card where
 
 import           Data.Either
 import           Data.Maybe
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Card
 import           Web.Stripe.Customer
 import           Web.Stripe.Recipient

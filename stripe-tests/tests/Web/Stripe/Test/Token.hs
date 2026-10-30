@@ -2,10 +2,11 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Token where
 
 import           Data.Either
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 import           Web.Stripe.Token
 

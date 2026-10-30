@@ -14,12 +14,10 @@ module Web.Stripe.Error
     , StripeError         (..)
     ) where
 
-import           Control.Applicative ((<$>))
 import           Control.Exception
 import           Control.Monad       (mzero)
 import           Data.Aeson
 import           Data.Text           (Text)
-import           Data.Typeable
 
 ------------------------------------------------------------------------------
 -- | Error Codes for HTTP Responses
@@ -30,7 +28,7 @@ data StripeErrorHTTPCode =
         | NotFound          -- ^ 404
         | StripeServerError -- ^ (>=500)
         | UnknownHTTPCode   -- ^ All other codes
-          deriving (Show, Typeable)
+          deriving (Show)
 
 ------------------------------------------------------------------------------
 -- | Stripe Error Types
@@ -41,7 +39,7 @@ data StripeErrorType =
         | ConnectionFailure
         | ParseFailure
         | UnknownErrorType
-          deriving (Show, Typeable)
+          deriving (Show)
 
 ------------------------------------------------------------------------------
 -- | Stripe Error Codes
@@ -59,7 +57,7 @@ data StripeErrorCode =
         | ProcessingError
         | RateLimit
         | UnknownError
-          deriving (Show, Typeable)
+          deriving (Show)
 
 ------------------------------------------------------------------------------
 -- | Stripe Error
@@ -69,7 +67,7 @@ data StripeError = StripeError {
     , errorCode  :: Maybe StripeErrorCode
     , errorParam :: Maybe Text
     , errorHTTP  :: Maybe StripeErrorHTTPCode
-    } deriving (Show, Typeable)
+    } deriving (Show)
 
 instance Exception StripeError
 

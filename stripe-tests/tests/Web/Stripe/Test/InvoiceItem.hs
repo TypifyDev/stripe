@@ -2,11 +2,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.InvoiceItem where
 
 import           Data.Either
 
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 
 import           Web.Stripe.InvoiceItem

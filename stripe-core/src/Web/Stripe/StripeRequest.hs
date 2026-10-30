@@ -28,9 +28,8 @@ module Web.Stripe.StripeRequest
   , mkStripeRequest
   ) where
 
-import           Control.Applicative ((<$>))
 import           Data.ByteString    (ByteString)
-import           Data.Monoid        ((<>))
+import           Data.Kind          (Type)
 import           Data.String        (fromString)
 import           Data.Text          (Text)
 import qualified Data.Text.Encoding as Text
@@ -489,7 +488,7 @@ stripeRequest -&- param =
 
 ------------------------------------------------------------------------------
 -- | return type of stripe request
-type family StripeReturn a :: *
+type family StripeReturn a :: Type
 
 ------------------------------------------------------------------------------
 -- | HTTP Params

@@ -2,10 +2,11 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Refund where
 
 import           Data.Either
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Charge
 import           Web.Stripe.Customer
 import           Web.Stripe.Refund
@@ -67,8 +68,9 @@ refundTests stripe = do
           void $ deleteCustomer cid
           return ref
         result `shouldSatisfy` isRight
-        let Right Refund{..} = result
-        refundMetaData `shouldBe` (MetaData [("hello","there")])
+        case result of
+          Left _ -> expectationFailure "expected Right Refund, got Left"
+          Right Refund{..} -> refundMetaData `shouldBe` (MetaData [("hello","there")])
       it "Retrieves all refunds for a Charge" $ do
         result <- stripe $ do
           Customer { customerId = cid  } <- createCustomer -&- cardinfo
@@ -78,8 +80,9 @@ refundTests stripe = do
           void $ deleteCustomer cid
           return r
         result `shouldSatisfy` isRight
-        let Right StripeList {..} = result
-        length list `shouldBe` 1
+        case result of
+          Left _ -> expectationFailure "expected Right StripeList, got Left"
+          Right StripeList {..} -> length list `shouldBe` 1
       it "Retrieves all refunds for a Charge with expansion" $ do
         result <- stripe $ do
           Customer { customerId = cid  } <- createCustomer -&- cardinfo
@@ -89,5 +92,6 @@ refundTests stripe = do
           void $ deleteCustomer cid
           return r
         result `shouldSatisfy` isRight
-        let Right StripeList {..} = result
-        length list `shouldBe` 1
+        case result of
+          Left _ -> expectationFailure "expected Right StripeList, got Left"
+          Right StripeList {..} -> length list `shouldBe` 1

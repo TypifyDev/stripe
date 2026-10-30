@@ -27,7 +27,6 @@ import qualified Network.HTTP.Types       as Http
 
 import Data.Aeson               as A
 import Data.ByteString          (ByteString)
-import Data.Monoid              ((<>))
 #if MIN_VERSION_http_client(0,5,13)
 import Network.HTTP.Client      as Http hiding (withManager, withConnection)
 #else

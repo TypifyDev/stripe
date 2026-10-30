@@ -2,10 +2,11 @@
 {-# LANGUAGE RebindableSyntax  #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Charge where
 
 import           Data.Either
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Charge
 import           Web.Stripe.Customer
 import           Web.Stripe.Test.Prelude
@@ -54,9 +55,11 @@ chargeTests stripe =
           void $ deleteCustomer cid
           return result
         result `shouldSatisfy` isRight
-        let Right Charge { chargeMetaData = cmd, chargeDescription = desc } = result
-        cmd `shouldBe` (MetaData [("hi", "there")])
-        desc `shouldSatisfy` (==(Just $ Description "Cool"))
+        case result of
+          Left _ -> expectationFailure "expected Right Charge, got Left"
+          Right Charge { chargeMetaData = cmd, chargeDescription = desc } -> do
+            cmd `shouldBe` (MetaData [("hi", "there")])
+            desc `shouldSatisfy` (==(Just $ Description "Cool"))
     retrieveExpandedChargeTest =
       it "Retrieves an expanded charge succesfully" $ do
         result <- stripe $ do
@@ -86,5 +89,6 @@ chargeTests stripe =
           void $ deleteCustomer cid
           return result
         result `shouldSatisfy` isRight
-        let Right Charge { chargeCaptured = captured } = result
-        captured `shouldBe` True
+        case result of
+          Left _ -> expectationFailure "expected Right Charge, got Left"
+          Right Charge { chargeCaptured = captured } -> captured `shouldBe` True

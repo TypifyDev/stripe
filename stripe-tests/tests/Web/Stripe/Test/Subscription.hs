@@ -2,12 +2,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Subscription where
 
 import           Data.Either
 import           Data.Maybe
 
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 import           Web.Stripe.Test.Util
 
@@ -125,7 +126,6 @@ subscriptionTests stripe = do
       result `shouldSatisfy` isRight
     it "Succesfully updates a Customer's Subscriptions" $ do
       planid <- makePlanId
-      secondPlanid <- makePlanId
       couponid <- makeCouponId
       result <- stripe $ do
         Coupon { } <-
@@ -147,9 +147,11 @@ subscriptionTests stripe = do
         void $ deleteCustomer cid
         return sub
       result `shouldSatisfy` isRight
-      let Right Subscription {..} = result
-      subscriptionMetaData `shouldBe` (MetaData [("hi", "there")])
-      subscriptionDiscount `shouldSatisfy` isJust
+      case result of
+        Left _ -> expectationFailure "expected Right Subscription, got Left"
+        Right Subscription {..} -> do
+          subscriptionMetaData `shouldBe` (MetaData [("hi", "there")])
+          subscriptionDiscount `shouldSatisfy` isJust
     it "Succesfully cancels a Customer's Subscription" $ do
       planid <- makePlanId
       result <- stripe $ do
@@ -165,5 +167,6 @@ subscriptionTests stripe = do
         void $ deleteCustomer cid
         return sub
       result `shouldSatisfy` isRight
-      let Right Subscription {..} = result
-      subscriptionStatus `shouldBe` Canceled
+      case result of
+        Left _ -> expectationFailure "expected Right Subscription, got Left"
+        Right Subscription {..} -> subscriptionStatus `shouldBe` Canceled

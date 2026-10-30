@@ -6,7 +6,6 @@ module Web.Stripe.Test.Util
        ) where
 
 import           System.Random
-import           Control.Applicative
 import qualified Data.Text as T
 import           Data.Text    (Text)
 import           Control.Monad

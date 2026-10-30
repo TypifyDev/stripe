@@ -5,9 +5,11 @@
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Prelude
        ( ($)
        , (-&-)
@@ -38,13 +40,14 @@ module Web.Stripe.Test.Prelude
        , StripeSpec
        ) where
 
+import           Data.Type.Equality (type (~))
 import           Data.Aeson      (Value, Result(..), FromJSON, fromJSON)
 import           Data.Either     (Either)
 import           Data.String     (fromString)
 import           Data.Maybe      (Maybe(..))
 import           GHC.Num         (fromInteger)
 import           Prelude         (Bool(..), Eq(..), Functor(..), ($), IO, Char, String, error, undefined, (.), id, length)
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Test.Hspec.Core.Spec (SpecM)
 import qualified Control.Monad       as M
 import qualified Control.Monad.Fail  as MF

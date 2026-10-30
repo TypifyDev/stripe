@@ -24,21 +24,19 @@ import           Control.Monad              (when)
 import           Data.Aeson                 (Result(..), FromJSON, Value, fromJSON)
 import           Data.Aeson.Parser          (json')
 import qualified Data.ByteString            as S
-import           Data.Monoid                (mempty, (<>))
 import           Data.Maybe                 (fromMaybe)
 import qualified Data.Text.Encoding         as T
 import           Network.Http.Client        (Connection,
                                              baselineContextSSL, buildRequest,
                                              closeConnection,
                                              getStatusCode, http,
-                                             inputStreamBody, openConnectionSSL,
+                                             openConnectionSSL,
                                              receiveResponse, sendRequest,
                                              setAuthorizationBasic, encodedFormBody,
-                                             setContentType, setHeader, 
+                                             setContentType, setHeader,
                                              setTransferEncoding)
 import qualified Network.Http.Client        as C
 import           OpenSSL                    (withOpenSSL)
-import qualified System.IO.Streams          as Streams
 import qualified System.IO.Streams.Attoparsec as Streams
 import           System.IO.Streams.Attoparsec (ParseException(..))
 import           Web.Stripe.Client          (APIVersion (..), Method(..), StripeConfig (..),

@@ -2,10 +2,12 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
+{-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
 module Web.Stripe.Test.Recipient where
 
 import           Data.Either
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 import           Web.Stripe.Recipient
 

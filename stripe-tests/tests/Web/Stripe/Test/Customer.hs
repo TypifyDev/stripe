@@ -2,10 +2,11 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.Customer where
 import           Data.Either
 import           Data.Maybe
-import           Test.Hspec
+import           "hspec" Test.Hspec
 import           Web.Stripe.Test.Prelude
 import           Web.Stripe.Customer
 

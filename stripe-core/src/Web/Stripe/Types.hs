@@ -6,6 +6,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# OPTIONS_GHC -Wno-deriving-typeable #-}
 
 ------------------------------------------------------------------------------
 -- |
@@ -18,7 +19,7 @@
 ------------------------------------------------------------------------------
 module Web.Stripe.Types where
 ------------------------------------------------------------------------------
-import Control.Applicative (pure, (<$>), (<*>), (<|>))
+import Control.Applicative ((<|>))
 import Control.Monad (mzero)
 import Data.Aeson
        ( FromJSON(parseJSON)
@@ -30,6 +31,7 @@ import Data.Aeson
 import Data.Aeson.Types (typeMismatch)
 import Data.Data (Data, Typeable)
 import qualified Data.HashMap.Strict as H
+import Data.Kind (Type)
 import Data.Ratio ((%))
 import Data.Text (Text)
 import Data.Time (UTCTime)
@@ -42,7 +44,7 @@ import Web.Stripe.Util (fromSeconds)
 ------------------------------------------------------------------------------
 -- | `Expandable` values
 --    maps from an id to an object, e.g. `CardId` to `Card`
-type family ExpandsTo id :: *
+type family ExpandsTo id :: Type
 
 -- | a wrapper for fields which can either be an id or an expanded object
 data Expandable id

@@ -1,9 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RebindableSyntax #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PackageImports #-}
 module Web.Stripe.Test.ApplicationFee where
 
-import Test.Hspec
+import "hspec" Test.Hspec
 import Web.Stripe.Test.Prelude
 import Web.Stripe.ApplicationFee
 import Data.Either

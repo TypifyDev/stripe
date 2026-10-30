@@ -24,8 +24,7 @@ module Web.Stripe.Client
 
 import           Data.Aeson      (Value, Result(..), fromJSON)
 import           Data.ByteString (ByteString)
-import           Data.Data       (Data, Typeable)
-import           Data.Monoid     (mempty)
+import           Data.Data       (Data)
 import           Data.Text       as T
 import           Text.Read       (lexP, pfail)
 import qualified Text.Read       as R
@@ -38,19 +37,19 @@ import           Web.Stripe.Util
 -- | Stripe secret key
 newtype StripeKey = StripeKey
     { getStripeKey :: ByteString
-    } deriving (Read, Show, Eq, Ord, Data, Typeable)
+    } deriving (Read, Show, Eq, Ord, Data)
 
 ------------------------------------------------------------------------------
 -- | Endpoint Protocol
 data Protocol = HTTP | HTTPS
-  deriving (Read, Show, Eq, Ord, Data, Typeable)
+  deriving (Read, Show, Eq, Ord, Data)
 
 ------------------------------------------------------------------------------
 -- | Stripe config
 data StripeConfig = StripeConfig
     { secretKey :: StripeKey
     , stripeEndpoint :: Maybe Endpoint
-    } deriving (Read, Show, Eq, Ord, Data, Typeable)
+    } deriving (Read, Show, Eq, Ord, Data)
 
 ------------------------------------------------------------------------------
 -- | Stripe endpoint, useful for mocking
@@ -68,7 +67,7 @@ defaultEndpoint = Endpoint "api.stripe.com" HTTPS 443
 -- | API Version
 data APIVersion =
     V20141007 -- ^ Stripe API Version for this package release
-    deriving (Eq, Ord, Data, Typeable)
+    deriving (Eq, Ord, Data)
 
 instance Show APIVersion where
     show V20141007 = "2014-10-07"
